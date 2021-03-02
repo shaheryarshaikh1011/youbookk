@@ -9,7 +9,14 @@
 
 * NEW    /campgrounds/:id/comments/new  GET
 * CREATE /campgrounds/:id/comments	  POST
+router.get("/home/:id/likes",function(req,res) {
+	//find cg by id
+	Campground.findOneAndUpdate(req.params.id,{$inc:{ likes: 1 }} ).populate("comments").exec(function(err,foundCampground) {
+		// body...
+		res.redirect("/home/"+req.params.id);
+	})
 
+})
 # initial routes
 * add landing page
 * add campgrounds page
