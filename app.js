@@ -1,4 +1,5 @@
 var express = require("express");
+var multer  = require("multer")
 var app= express();
 var bodyParser=require("body-parser");
 var mongoose=require("mongoose");
@@ -6,13 +7,15 @@ var flash=require("connect-flash");
 var passport=require("passport");
 var LocalStrategy=require("passport-local");
 var methodOverride=require("method-override");
-var Campground=require("./models/campground");
+
+var upload = multer({dest: 'public/img/users'})
+var Campground=require("./models/posts");
 var Comment =require("./models/comment");
+var Like    =require("./models/likke.js");
 var User    =require("./models/user");
-var seedDB=require("./seeds");
 
 var commentRoutes =require("./routes/comments");
-var campgroundRoutes=require("./routes/campgrounds");
+var postRoutes=require("./routes/home");
 var indexRoutes=require("./routes/index");
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"));
@@ -53,7 +56,7 @@ app.use(function(req,res,next) {
 
 //requiring routes
 app.use(indexRoutes);
-app.use(campgroundRoutes);
+app.use(postRoutes);
 app.use(commentRoutes);
 
 
@@ -70,6 +73,6 @@ app.use(commentRoutes);
 app.listen(3000,'localhost',function() {
 	// body...
 	console.log("Listening to port"+3000);
-	console.log("Yelpcamp Local Server has Started");
+	console.log("Youbook Local Server has Started");
 
 });

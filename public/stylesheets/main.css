@@ -18,3 +18,18 @@
 {
 	display: inline;
 }
+
+#postimage {
+	display: block;
+	max-width: 100%;
+	height: 600px;
+	width: 1000px;
+  }
+
+#thumbindex
+{
+	display: block;
+	max-width: 100%;
+	height: 200px;
+	width: 300px;	
+}
