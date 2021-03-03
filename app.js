@@ -1,3 +1,4 @@
+//Requiring packages
 var express = require("express");
 var multer  = require("multer")
 var app= express();
@@ -8,23 +9,38 @@ var passport=require("passport");
 var LocalStrategy=require("passport-local");
 var methodOverride=require("method-override");
 
+//requiring Middleware
+var middleware=require("./middleware");
+
+//setting up multer destination
 var upload = multer({dest: 'public/img/users'})
+
+//requiring models
 var Campground=require("./models/posts");
 var Comment =require("./models/comment");
 var Like    =require("./models/likke.js");
 var User    =require("./models/user");
 
+//Requiring routes
 var commentRoutes =require("./routes/comments");
 var postRoutes=require("./routes/home");
 var indexRoutes=require("./routes/index");
+
+//Setting up static folder
 app.use(express.static(__dirname + "/public"))
+//setting up method override module and flash module
 app.use(methodOverride("_method"));
 app.use(flash());
 
+//MongoDb configuration
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect("mongodb://localhost/yelp_camp");
+
+//setting up bodyparser
 app.use(bodyParser.urlencoded({extended:true}));
+
+//setting up view engine
 app.set("view engine","ejs");
 
 
@@ -54,25 +70,94 @@ app.use(function(req,res,next) {
 
 
 
-//requiring routes
+//using routes
 app.use(indexRoutes);
 app.use(postRoutes);
 app.use(commentRoutes);
 
 
+//socket connections
+const path = require('path');
+const socketio = require('socket.io');
+const formatMessage = require('./utils/messages');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('./utils/users');
+const http = require('http').createServer(app);
+const io =require('socket.io')(http);
 
+//route when user clicks on Enter chatroom button on navbar
+app.get('/joinChat',middleware.isLoggedIn,function (req, res) {
+	res.sendFile(__dirname + '/public/room.html');
+  });
+  
+  
+  //botname
+  const botName = 'Youbook Bot';
 
+// Run when client connects
+io.on('connection', socket => {
+  socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+    console.log(user);
+    
+    socket.join(user.room.toLowerCase());
 
+    // Welcome current user
+    socket.emit('message', formatMessage(botName, 'Welcome to YouBook Chatrooms!'));
 
+    // Broadcast when a user connects
+    socket.broadcast
+      .to(user.room.toLowerCase())
+      .emit(
+        'message',
+        formatMessage(botName, `${user.username} has joined the chat`)
+      );
 
+    // Send users and room info
+    io.to(user.room.toLowerCase()).emit('roomUsers', {
+      room: user.room.toLowerCase(),
+      users: getRoomUsers(user.room.toLowerCase())
+    });
+  });
 
+  // Listen for chatMessage
+  socket.on('chatMessage', msg => {
+    const user = getCurrentUser(socket.id);
 
+    io.to(user.room.toLowerCase()).emit('message', formatMessage(user.username, msg));
+  });
 
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id);
 
+    if (user) {
+      io.to(user.room.toLowerCase()).emit(
+        'message',
+        formatMessage(botName, `${user.username} has left the chat`)
+      );
 
-app.listen(3000,'localhost',function() {
-	// body...
-	console.log("Listening to port"+3000);
-	console.log("Youbook Local Server has Started");
-
+      // Send users and room info
+      io.to(user.room.toLowerCase()).emit('roomUsers', {
+        room: user.room.toLowerCase(),
+        users: getRoomUsers(user.room)
+      });
+    }
+  });
 });
+
+
+
+
+
+
+//server listener
+http.listen(process.env.PORT || 3000, function() {
+	var host = http.address().address
+	var port = http.address().port
+	console.log('YouBook WebApp listening at http://%s:%s', host, port)
+  });
