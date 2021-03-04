@@ -3,6 +3,15 @@ const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 
+$.getJSON('/api/user_data', function(data) {
+    // JSON result in `data` variable
+    var data=JSON.stringify(data.userr);
+    console.log(data)
+});
+ 
+
+
+
 // Get username and room from URL
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
@@ -78,4 +87,4 @@ function outputUsers(users) {
     li.innerText = user.username;
     userList.appendChild(li);
   });
-}s
+} 

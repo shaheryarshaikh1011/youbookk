@@ -1,3 +1,9 @@
+body{
+	background-repeat: no-repeat;
+    background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+}
+
+
 .thumbnail img
 {
 	width: 100%;
@@ -6,6 +12,7 @@
 .thumbnail
 {
 	padding: 0;
+	
 }
 
 
@@ -32,4 +39,23 @@
 	max-width: 100%;
 	height: 200px;
 	width: 300px;	
+}
+
+.jumbotron
+{
+	
+	border-radius: 40%;
+}
+
+#more:hover,
+#more:active,
+#more:focus {
+    background-color: rgb(12, 97, 33);
+}
+
+
+#postbtn:hover,
+#postbtn:active,
+#postbtn:focus {
+    background-color: rgb(12, 97, 33);
 }

@@ -2,7 +2,7 @@ var express=require("express");
 var router= express.Router();
 var passport=require("passport");
 var User    =require("../models/user");
-
+var middleware=require("../middleware");
 
 //landing page
 router.get("/",function(req,res) {
@@ -11,7 +11,7 @@ router.get("/",function(req,res) {
 });
 
 //show register form
-router.get("/register",function(req,res) {
+router.get("/register",middleware.isNotLoggedIn,function(req,res) {
 	res.render("register");
 	// body...
 });
@@ -38,7 +38,7 @@ router.post("/register",function(req,res) {
 //login routes
 
 //show login form
-router.get("/login",function(req,res) {
+router.get("/login",middleware.isNotLoggedIn,function(req,res) {
 	// body...
 	res.render("login");
 });
@@ -47,7 +47,8 @@ router.get("/login",function(req,res) {
 router.post("/login",passport.authenticate("local",
 	{
 		successRedirect:"/home",
-	 	failureRedirect:"/login"
+	 	failureRedirect:"/login",
+		failureFlash: true
 	 }),function(req,res) {
 	// body...
 	

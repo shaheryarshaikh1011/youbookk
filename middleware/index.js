@@ -76,6 +76,19 @@ middlewareObj.isLoggedIn=function(req,res,next){
 	res.redirect("/login");
 };
 
+middlewareObj.isNotLoggedIn=function(req,res,next)
+{
+	if(req.isAuthenticated())
+	{
+		res.redirect('/home');
+	}
+	else
+	{
+		return next();
+	}
+}
+
+
 middlewareObj.hasUserLiked=function(req,res,next)
 {
 	Like.exists({likedby:req.user.username,postid:req.params.id},function(err,obj)

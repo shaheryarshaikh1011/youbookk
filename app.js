@@ -59,7 +59,15 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+function hi(req,res,next)
+{
 
+  hii=req.user;
+  console.log(hii);
+  next();
+};
+
+app.use(hi);
 app.use(function(req,res,next) {
 	res.locals.currentUser=req.user;
 	res.locals.error=req.flash("error");
@@ -74,6 +82,7 @@ app.use(function(req,res,next) {
 app.use(indexRoutes);
 app.use(postRoutes);
 app.use(commentRoutes);
+
 
 
 //socket connections
@@ -98,11 +107,16 @@ app.get('/joinChat',middleware.isLoggedIn,function (req, res) {
   //botname
   const botName = 'Youbook Bot';
 
+ 
+
+
 // Run when client connects
 io.on('connection', socket => {
   socket.on('joinRoom', ({ username, room }) => {
     const user = userJoin(socket.id, username, room);
     console.log(user);
+
+    
     
     socket.join(user.room.toLowerCase());
 
@@ -150,8 +164,17 @@ io.on('connection', socket => {
   });
 });
 
+app.get('/api/user_data', function(req, res) {
 
-
+  if (req.user === undefined) {
+      // The user is not logged in
+      res.json({});
+  } else {
+      res.json({
+          userr: req.user
+      });
+  }
+});
 
 
 
