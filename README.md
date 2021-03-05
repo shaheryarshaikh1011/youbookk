@@ -1,4 +1,8 @@
 <h1 align="center">Welcome to YouBook  <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="25px"></h1>
+<p align="center">
+ <img src="https://github.com/shaheryarshaikh1011/youbookk/blob/master/public/logo/YouBook.jpg" width=700 height=500>
+</p>
+
 <p>
   <a href="https://github.com/shaheryarshaikh1011/youbook#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
