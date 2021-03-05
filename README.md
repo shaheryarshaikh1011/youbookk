@@ -40,7 +40,6 @@
 - [Passport JS](http://www.passportjs.org/)
 - [MongoDB](https://www.mongodb.com/)
 - [Mongoose](https://mongoosejs.com/)
-- [Sendgrid](https://sendgrid.com/)
 - [Socket.io](https://socket.io/)
 
 
@@ -48,7 +47,7 @@
 
 # Features
 
-* Client will get a Welcome Email.(to be added)
+
 * Client can add posts with image.
 * Authentication is done by Passport js.
 * Reponsive UI supports Mobile Phone Resolutions and widths.
@@ -59,7 +58,6 @@
 * Download and install [NodeJS](https://nodejs.org/en/)
 * git clone https://github.com/shaheryarshaikh1011/youbookk in your project folder
 * To run this project, install all dependencies using npm install:
-* Take api key from [Sendgrid](https://sendgrid.com/) for sending emails 
 * create a session id in env file
 * use db string to connect to db
 
