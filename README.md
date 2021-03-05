@@ -38,6 +38,7 @@
 <b>Built with</b>
 
 - [NodeJS](https://nodejs.org/en/)
+- [Multer](https://www.npmjs.com/package/multer)
 - [EJS](https://ejs.co/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Express JS](https://expressjs.com/)
