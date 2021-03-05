@@ -26,6 +26,10 @@ var commentRoutes =require("./routes/comments");
 var postRoutes=require("./routes/home");
 var indexRoutes=require("./routes/index");
 
+//seting up env file
+require('dotenv').config();
+
+
 //Setting up static folder
 app.use(express.static(__dirname + "/public"))
 //setting up method override module and flash module
@@ -59,15 +63,32 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-function hi(req,res,next)
+/* function hi(req,res,next)
 {
 
-  hii=req.user;
-  console.log(hii);
-  next();
+  console.log(process.env.SENDGRID_API_KEY);
 };
 
-app.use(hi);
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const msg = {
+  to: 'shaheryar.shaikh@avc.ac.in', // Change to your recipient
+  from: 'hmsofficial1011@gmail.com', // Change to your verified sender
+  subject: 'Sending with SendGrid is Fun',
+  text: 'and easy to do anywhere, even with Node.js',
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+}
+sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error.response.body)
+  })
+
+console.log(process.env.SENDGRID_API_KEY); */
+//app.use(hi);
 app.use(function(req,res,next) {
 	res.locals.currentUser=req.user;
 	res.locals.error=req.flash("error");

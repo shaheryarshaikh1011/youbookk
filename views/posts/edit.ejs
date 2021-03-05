@@ -1,34 +1,36 @@
 <%- include('../forms'); -%>
 
-<div class="container">
-	<div class="row">
-		<h1 style="text-align:center">Edit <%= campground.name %> cg</h1>
-		<div style="width:30% ;margin:25px auto ">
+<div class="modal-dialog text-center form-page">
+    <div class="col-sm-9 main-section">
+    <h1 class="ftitle">Edit your post <%= campground.name %></h1>
+      <div class="modal-content">
+          <div class="col-12">
+          <h1></h1>
+        </div>
 
+        <div class="col-12 form-input">
 			<form action="/home/<%= campground._id %>/edit?_method=PUT" method="POST">
-			<div class="form-group">
-				<input class="form-control" type="text" value="<%= campground.name %>" name="campground[name]">
+            			<div class="form-group">
+
+		<input class="form-control" type="text" value="<%= campground.name %>" name="campground[name]"  oninvalid="this.setCustomValidity('Please Enter Your Postname')" required>
 			</div>
-      <div class="form-group">
-        <input class="form-control" type="text" value="<%= campground.description %>" name="campground[description]">
+			<div class="form-group">
+				<input class="form-control" type="text" value="<%= campground.description %>" name="campground[description]">
+			  </div>
+            <button type="submit" class="btn btn-success">submit</button>
+            <div class="goback">
+            <a class="btn btn-warning btn-lg" href="/home/<%=campground._id%>/" > Go back!</a>
+            </div>
+          </form>
+
+
+        </div>
+
+   
+
       </div>
-			<div class="form-group">
-				<button class="btn btn-lg btn-primary btn-block">submit</button>
-			</div>
-				
-				
-				
-	
-			</form>
-			<a href="/home">Go back!</a>
-		</div>
-
-
-	</div>
-
+    </div>
 </div>
-
-
 
 
 <%- include('../footer'); -%>

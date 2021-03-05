@@ -26,7 +26,7 @@ body{
 	display: inline;
 }
 
-#postimage {
+/* #postimage {
 	display: block;
 	max-width: 100%;
 	height: 600px;
@@ -39,7 +39,7 @@ body{
 	max-width: 100%;
 	height: 200px;
 	width: 300px;	
-}
+} */
 
 .jumbotron
 {

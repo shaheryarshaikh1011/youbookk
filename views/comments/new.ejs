@@ -1,31 +1,33 @@
 <%- include('../forms'); -%>
 
+<div class="modal-dialog text-center form-page">
+    <div class="col-sm-9 main-section">
+    <h1 class="ftitle">Add comment to <%=campground.name%></h1>
+      <div class="modal-content">
+          <div class="col-12">
+          <h1></h1>
+        </div>
 
-<div class="container">
-	<div class="row">
-		<h1 style="text-align:center">Edit comment to <%=campground.name%></h1>
-		<div style="width:30% ;margin:25px auto ">
-
+        <div class="col-12 form-input">
 			<form action="/home/<%=campground._id%>/comments" method="POST">
-			
-			<div class="form-group">
-				<input class="form-control" type="text" placeholder="enter comment" name="comment[text]">
+            			<div class="form-group">
+		<input class="form-control" type="text" placeholder="enter comment" name="comment[text]" oninvalid="this.setCustomValidity('Please Enter Your comment')" required>
 			</div>
-			<div class="form-group">
-				<button class="btn btn-lg btn-primary btn-block">submit</button>
-			</div>
-				
-				
-				
-	
-			</form>
-			<a href="/home">Go back!</a>
-		</div>
+            <button type="submit" class="btn btn-success">submit</button>
+            <div class="goback">
+            <a class="btn btn-warning btn-lg" href="/home/<%=campground._id%>/" > Go back!</a>
+            </div>
+          </form>
 
 
-	</div>
+        </div>
 
+   
+
+      </div>
+    </div>
 </div>
+
 
 
 <%- include('../footer'); -%>

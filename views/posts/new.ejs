@@ -1,34 +1,40 @@
 <%- include('../forms'); -%>
 
+<div class="modal-dialog text-center form-page">
+    <div class="col-sm-9 main-section">
+    <h1 class="ftitle">Add new post</h1>
+      <div class="modal-content">
+          <div class="col-12">
+          <h1></h1>
+        </div>
 
-	<div class="row">
-		<h1 style="text-align:center">Create cg</h1>
-		<div style="width:30% ;margin:25px auto ">
-
+        <div class="col-12 form-input">
 			<form action="/home" method="POST" enctype="multipart/form-data">
-			<div class="form-group">
-				<input class="form-control" type="text" placeholder="enter name" name="name">
-			</div>
-			<div class="form-group">
-				<input class="form-control" type="file" name="photo"/>
-			</div>
-      <div class="form-group">
-        <input class="form-control" type="text" placeholder="description" name="description">
-      </div>
-			<div class="form-group">
-				<button class="btn btn-lg btn-primary btn-block">submit</button>
-			</div>
-				
-				
-				
-	
-			</form>
-			<a href="/campgrounds">Go back!</a>
+        <div class="form-group">
+			<input class="form-control" type="text" placeholder="enter name" name="name" oninvalid="this.setCustomValidity('Please Enter Your Postname')" required>
 		</div>
+			  <div class="form-group">
+				<input class="form-control" type="text" placeholder="description" name="description">
+			  </div>
+			  <div class="form-group">
+				<label class="btn btn-default btn-lg">
+					Browse Image <input class="form-control" type="file" name="photo" hidden/>
+				</label>
+				
+			  </div>
+            <button type="submit" class="btn btn-success">submit</button>
+            <div class="goback">
+            <a class="btn btn-warning btn-lg" href="/home/" > Go back!</a>
+            </div>
+          </form>
 
 
-	</div>
+        </div>
 
+   
+
+      </div>
+    </div>
 </div>
 
 

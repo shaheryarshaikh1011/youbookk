@@ -7,15 +7,15 @@
     </div>
     <div class="col-md-10">
         <div class="thumbnail" style="border-radius:2%;">
-          <img id="postimage" id="thumbindex" src="<%=campground.pphoto%>" style="border-radius: 2%;">
+          <img class="img-fluid" id="postimage" id="thumbindex" src="<%=campground.pphoto%>" style="border-radius: 2%;">
           <div class="caption-full">
             <h4 class="pull-right"><%=campground.likes%> Likes <form action="/home/<%= campground._id%>/likes" method="GET">
               <input type="submit" id="likeb" onclick="likee()" class="btn btn-success btn-lg" value="like"></button>
             </form></h4>   
-            <h4><a href="/"><%=campground.name%></a></h4>    
+            <h4><a href="/home/"><%=campground.name%></a></h4>    
             <p><%=campground.description%></p>
             <p>
-              <em>Submitted by <%=campground.author.username%>,<%=moment(campground.createdAt).fromNow()%></em>
+              <em>Submitted by <%=campground.author.username%> on <%=moment(campground.createdAt).format("hh:mma Do-MMM-YYYY")%></em>
             </p>
             <% if(currentUser && campground.author.id.equals(currentUser._id)){%>
                 <a class="btn btn-warning" href="/home/<%=campground._id%>/edit">Edit</a>
@@ -38,7 +38,7 @@
               <div class="col-md-12">
                 <strong><%=comment.author.username%></strong>
                 <span class="pull-right">
-                  <%=moment(comment.createdAt).fromNow()%>
+                  <%=moment(comment.createdAt).format("hh:mma Do-MMM-YYYY")%>
                 </span>
                 <p>
                   <%=comment.text%>

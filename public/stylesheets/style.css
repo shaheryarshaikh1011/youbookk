@@ -150,37 +150,53 @@ a {
 	border-bottom-right-radius: 10%;
 }
 
-.join-main p {
+.form-group
+{
+	padding: 30px 40px;
+	background-color: #667aff;
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 10%;
+}
+
+.form-group .form-control {
 	margin-bottom: 20px;
+	background-color: #667aff;
+	border: 0ch;
 }
 
-.join-main .form-control {
-	margin-bottom: 20px;
+
+
+.form-group input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 50px;
+	width: 100%;
+	border-style:outset;
+	
 }
 
-.join-main label {
-	display: block;
-	margin-bottom: 5px;
-}
-
-.join-main input[type='text'] {
+.form-group select {
 	font-size: 16px;
 	padding: 5px;
 	height: 40px;
 	width: 100%;
 }
 
-.join-main select {
-	font-size: 16px;
-	padding: 5px;
-	height: 40px;
-	width: 100%;
-}
-
-.join-main .btn {
+.form-group .btn {
 	margin-top: 20px;
 	width: 100%;
+	border-radius: 20px;
 }
+
+.form-group .btn:hover,
+.form-group .btn:active,
+.form-group .btn:focus
+{
+	background-color: rgb(12, 197, 58);
+	color: black;
+}
+
+
 
 @media (max-width: 700px) {
 	.chat-main {
