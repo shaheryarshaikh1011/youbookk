@@ -18,7 +18,7 @@ var upload = multer({dest: 'public/img/users'})
 //requiring models
 var Campground=require("./models/posts");
 var Comment =require("./models/comment");
-var Like    =require("./models/likke.js");
+
 var User    =require("./models/user");
 
 //Requiring routes

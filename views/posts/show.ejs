@@ -9,7 +9,7 @@
         <div class="thumbnail" style="border-radius:2%;">
           <img class="img-fluid" id="postimage" id="thumbindex" src="<%=campground.pphoto%>" style="border-radius: 2%;">
           <div class="caption-full">
-            <h4 class="pull-right"><%=campground.likes%> Likes <form action="/home/<%= campground._id%>/likes" method="GET">
+            <h4 class="pull-right"><%=campground.likedby.length ;%> Likes <form action="/home/<%= campground._id%>/likes" method="GET">
               <input type="submit" id="likeb" onclick="likee()" class="btn btn-success btn-lg" value="like"></button>
             </form></h4>   
             <h4><a href="/home/"><%=campground.name%></a></h4>    

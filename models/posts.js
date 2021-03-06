@@ -20,8 +20,7 @@ var campgroundSchema = new mongoose.Schema({
          ref: "Comment"
       }
    ],
-likes:{type:Number,
-      default:0}
+   likedby:[String]
 });
 
 module.exports = mongoose.model("Campground", campgroundSchema);

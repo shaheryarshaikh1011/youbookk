@@ -2,7 +2,6 @@ var express=require("express");
 var router= express.Router();
 var multer=require("multer");
 var Campground=require("../models/posts");
-var Like=require("../models/likke");
 var middleware=require("../middleware");
 const e = require("express");
 router.use(express.static('public'))
@@ -149,9 +148,29 @@ router.delete("/home/:id",middleware.checkCampgroundOwnership,function(req,res) 
 });
 
 
-router.get("/home/:id/likes",middleware.isLoggedIn,middleware.hasUserLiked,function(req,res) {
+/* router.get("/home/:id/likes",middleware.isLoggedIn,function(req,res) {
+	var likedby=req.user.username;
+	var postid=req.params.id;
+	var newCampLike={likedby:likedby,postid:postid};
+	Like.create(newCampLike,function(err,newlyLike) {
+		// body...if(err)
+		if(err)
+		{
+			console.log(err);
+		}
+		else
+		{	
+			console.log(newlyLike);
+			res.redirect("/home/"+req.params.id);
+		}
+	}) */
 
-	Campground.findByIdAndUpdate(req.params.id,{$inc:{ likes: 1 }} ).populate("comments").exec(function(err,foundCampground) {
+	
+
+	  
+	  
+
+	/* Campground.findByIdAndUpdate(req.params.id,{$inc:{ likes: 1 }} ).populate("comments").exec(function(err,foundCampground) {
 		// body...
 		if(err)
 		{
@@ -171,9 +190,32 @@ router.get("/home/:id/likes",middleware.isLoggedIn,middleware.hasUserLiked,funct
 		console.log(foundCampground.likes);
 		res.redirect("/home/"+req.params.id);
 		}
-	})
+	}) */
 
-})
+/* }) */
+
+router.get("/home/:id/likes",middleware.isLoggedIn,function(req,res) 
+{
+	//find the post by id
+	Campground.findById(req.params.id, function (err, doc){
+		if(err)
+		{
+			console.log(err);
+		}
+		else{
+		// take username of the user who liked the post
+		var us=req.user.username;
+		// append the username to the error and save
+		doc.likedby.addToSet(us);
+		doc.save() 
+		console.log(doc.likedby);
+		res.redirect("/home/"+req.params.id);
+		}
+	});
+	
+
+});
+
 
 
 

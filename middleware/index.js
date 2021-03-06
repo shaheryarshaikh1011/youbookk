@@ -1,7 +1,7 @@
 //all middleware
 var Campground=require("../models/posts");
 var Comment =require("../models/comment");
-var Like    =require("../models/likke");
+
 const e = require("express");
 var middlewareObj={}
 
@@ -88,32 +88,5 @@ middlewareObj.isNotLoggedIn=function(req,res,next)
 	}
 }
 
-
-middlewareObj.hasUserLiked=function(req,res,next)
-{
-	Like.exists({likedby:req.user.username,postid:req.params.id},function(err,obj)
-	{
-		if(err)
-		{
-			console.log("error occured")
-
-		}
-		else
-		{
-			console.log("data from like db",obj);
-			if(obj==true)
-			{
-				console.log("user has liked");
-				res.redirect("/home/"+req.params.id);
-			}
-			else
-			{
-				console.log("not true hasnt liked")
-				return next();
-			}
-			
-		}
-	}); 
-}
 
 module.exports=middlewareObj;
