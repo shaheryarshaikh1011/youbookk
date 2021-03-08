@@ -1,6 +1,6 @@
 var express=require("express");
 var router= express.Router();
-var Campground=require("../models/posts");
+var Posts=require("../models/posts");
 var Comment =require("../models/comment");
 var middleware=require("../middleware");
 
@@ -10,7 +10,7 @@ router.get("/home/:id/comments/new",middleware.isLoggedIn,function(req,res) {
 	// body...
 	//find cg by id
 	
-	Campground.findById(req.params.id,function(err,campground) {
+	Posts.findById(req.params.id,function(err,posts) {
 		// body...
 		if(err)
 		{
@@ -18,7 +18,7 @@ router.get("/home/:id/comments/new",middleware.isLoggedIn,function(req,res) {
 		}
 		else
 		{
-			res.render("comments/new",{campground:campground});
+			res.render("comments/new",{campground:posts});
 		}
 	})
 	
@@ -28,7 +28,7 @@ router.get("/home/:id/comments/new",middleware.isLoggedIn,function(req,res) {
 //comments create
 router.post("/home/:id/comments",middleware.isLoggedIn,function(req,res) {
 	//lookup cg using id
-	Campground.findById(req.params.id,function(err,campground) {
+	Posts.findById(req.params.id,function(err,campground) {
 		if(err)
 		{
 			console.log(err);

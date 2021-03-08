@@ -16,7 +16,7 @@ var middleware=require("./middleware");
 var upload = multer({dest: 'public/img/users'})
 
 //requiring models
-var Campground=require("./models/posts");
+var Posts=require("./models/posts");
 var Comment =require("./models/comment");
 
 var User    =require("./models/user");

@@ -1,9 +1,10 @@
 var express=require("express");
 var router= express.Router();
 var multer=require("multer");
-var Campground=require("../models/posts");
+var Posts=require("../models/posts");
 var middleware=require("../middleware");
 const e = require("express");
+const posts = require("../models/posts");
 router.use(express.static('public'))
 var multerStorage = multer.diskStorage({
 	destination: (req,file,cb)=>{
@@ -35,7 +36,7 @@ var upload = multer({
 var uploadUserPhoto=upload.single('photo');
 
 router.get("/home",function(req,res) {
-	Campground.find({},function(err,allcampgrounds) {
+	Posts.find({},function(err,allcampgrounds) {
 		if(err)
 		{
 			console.log(err);
@@ -65,7 +66,7 @@ router.post("/home",uploadUserPhoto,middleware.isLoggedIn,function(req,res) {
 	
 	var newCampground={name:name,description:desc,author:author,pphoto:pphoto};
 
-	Campground.create(newCampground,function(err,newlyCreated) {
+	Posts.create(newCampground,function(err,newlyCreated) {
 		// body...if(err)
 		if(err)
 		{
@@ -87,7 +88,7 @@ router.get("/home/new",middleware.isLoggedIn,function (req,res) {
 
 router.get("/home/:id",function(req,res) {
 	//find cg by id
-	Campground.findById(req.params.id).populate("comments").exec(function(err,foundCampground) {
+	Posts.findById(req.params.id).populate("comments").exec(function(err,foundCampground) {
 		// body...
 		if(err)
 		{
@@ -105,20 +106,20 @@ router.get("/home/:id",function(req,res) {
 });
 
 //edit cg route
-router.get("/home/:id/edit",middleware.checkCampgroundOwnership,function(req,res) {
+router.get("/home/:id/edit",middleware.checkPostOwnership,function(req,res) {
 	//is user logged in at all
 
-		Campground.findById(req.params.id,function(err,foundCampground) {
+		Posts.findById(req.params.id,function(err,foundCampground) {
 		
 				res.render("posts/edit",{campground:foundCampground});
 			
 			});
 });
 //update cg route
-router.put("/home/:id/edit",middleware.checkCampgroundOwnership,function(req,res) {
+router.put("/home/:id/edit",middleware.checkPostOwnership,function(req,res) {
 	//find and update
 
-	Campground.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCampground) {
+	Posts.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCampground) {
 		// body...
 		if(err)
 		{
@@ -132,9 +133,9 @@ router.put("/home/:id/edit",middleware.checkCampgroundOwnership,function(req,res
 	//redir
 });
 
-router.delete("/home/:id",middleware.checkCampgroundOwnership,function(req,res) {
+router.delete("/home/:id",middleware.checkPostOwnership,function(req,res) {
 	// body...
-	Campground.findByIdAndRemove(req.params.id,function(err) {
+	Posts.findByIdAndRemove(req.params.id,function(err) {
 		if(err)
 		{
 			res.redirect("/home");
@@ -197,7 +198,7 @@ router.delete("/home/:id",middleware.checkCampgroundOwnership,function(req,res) 
 router.get("/home/:id/likes",middleware.isLoggedIn,function(req,res) 
 {
 	//find the post by id
-	Campground.findById(req.params.id, function (err, doc){
+		Posts.findById(req.params.id, function (err, doc){
 		if(err)
 		{
 			console.log(err);

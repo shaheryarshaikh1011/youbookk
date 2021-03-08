@@ -18,9 +18,7 @@ router.get("/register",middleware.isNotLoggedIn,function(req,res) {
 
 //handle signup logic
 router.post("/register",function(req,res) {
-	// body...
-	/* var email = req.body.email;
-	console.log(email); */
+	
 	var newUser = new User({username:req.body.username});
 	 User.register(newUser,req.body.password,function(err,user) {
 		// body...

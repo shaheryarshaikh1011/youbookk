@@ -1,14 +1,15 @@
 //all middleware
-var Campground=require("../models/posts");
+var Posts=require("../models/posts");
 var Comment =require("../models/comment");
 
 const e = require("express");
 var middlewareObj={}
 
-middlewareObj.checkCampgroundOwnership = function(req,res,next) {
-	// body...
+//check post ownership
+middlewareObj.checkPostOwnership = function(req,res,next) {
+
 	if(req.isAuthenticated()){
-		Campground.findById(req.params.id,function(err,foundCampground) {
+		Posts.findById(req.params.id,function(err,foundCampground) {
 		if(err)
 		{
 			req.flash("error","campground not found");
