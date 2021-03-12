@@ -1,11 +1,16 @@
+//requiring express and multer
 var express=require("express");
 var router= express.Router();
 var multer=require("multer");
+
+//requiring posts model from mongodb
 var Posts=require("../models/posts");
+
+//requiring middleware file
 var middleware=require("../middleware");
-const e = require("express");
-const posts = require("../models/posts");
-router.use(express.static('public'))
+
+
+//multer configuration
 var multerStorage = multer.diskStorage({
 	destination: (req,file,cb)=>{
 		cb(null, 'public/img/users')
@@ -35,6 +40,8 @@ var upload = multer({
 });
 var uploadUserPhoto=upload.single('photo');
 
+
+//get all the posts
 router.get("/home",function(req,res) {
 	Posts.find({},function(err,allcampgrounds) {
 		if(err)
@@ -53,8 +60,10 @@ router.get("/home",function(req,res) {
 	// body...
 })
 
+
+//make a content post request
 router.post("/home",uploadUserPhoto,middleware.isLoggedIn,function(req,res) {
-	console.log(req.file);
+	//retrieve data from the ejs form
 	var name=req.body.name;
 	var desc=req.body.description;
 	var author={
@@ -66,8 +75,8 @@ router.post("/home",uploadUserPhoto,middleware.isLoggedIn,function(req,res) {
 	
 	var newCampground={name:name,description:desc,author:author,pphoto:pphoto};
 
+	//create a new document
 	Posts.create(newCampground,function(err,newlyCreated) {
-		// body...if(err)
 		if(err)
 		{
 			console.log(err);
@@ -78,16 +87,21 @@ router.post("/home",uploadUserPhoto,middleware.isLoggedIn,function(req,res) {
 		}
 	})
 	
-	// body...
+
 })
+
+
+//get new post form
 router.get("/home/new",middleware.isLoggedIn,function (req,res) {
-	// body...
+
 	res.render("posts/new.ejs");
 })
 
 
+
+//get the post by ID
 router.get("/home/:id",function(req,res) {
-	//find cg by id
+	//find the post details from post models and populate it with comments
 	Posts.findById(req.params.id).populate("comments").exec(function(err,foundCampground) {
 		// body...
 		if(err)
@@ -101,26 +115,22 @@ router.get("/home/:id",function(req,res) {
 			
 		}
 	})
-	
-	// body...
 });
 
-//edit cg route
+//edit post by ID
 router.get("/home/:id/edit",middleware.checkPostOwnership,function(req,res) {
-	//is user logged in at all
-
+		//find the post and fill the edit form with post details
 		Posts.findById(req.params.id,function(err,foundCampground) {
 		
 				res.render("posts/edit",{campground:foundCampground});
 			
 			});
 });
-//update cg route
+
+//update  post route
 router.put("/home/:id/edit",middleware.checkPostOwnership,function(req,res) {
 	//find and update
-
 	Posts.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCampground) {
-		// body...
 		if(err)
 		{
 				res.redirect("/home")
@@ -130,11 +140,12 @@ router.put("/home/:id/edit",middleware.checkPostOwnership,function(req,res) {
 			res.redirect("/home/"+req.params.id);
 		}
 	})
-	//redir
 });
 
+
+//delete the post
 router.delete("/home/:id",middleware.checkPostOwnership,function(req,res) {
-	// body...
+	//find and remove the post from mongodb
 	Posts.findByIdAndRemove(req.params.id,function(err) {
 		if(err)
 		{
@@ -149,52 +160,8 @@ router.delete("/home/:id",middleware.checkPostOwnership,function(req,res) {
 });
 
 
-/* router.get("/home/:id/likes",middleware.isLoggedIn,function(req,res) {
-	var likedby=req.user.username;
-	var postid=req.params.id;
-	var newCampLike={likedby:likedby,postid:postid};
-	Like.create(newCampLike,function(err,newlyLike) {
-		// body...if(err)
-		if(err)
-		{
-			console.log(err);
-		}
-		else
-		{	
-			console.log(newlyLike);
-			res.redirect("/home/"+req.params.id);
-		}
-	}) */
 
-	
-
-	  
-	  
-
-	/* Campground.findByIdAndUpdate(req.params.id,{$inc:{ likes: 1 }} ).populate("comments").exec(function(err,foundCampground) {
-		// body...
-		if(err)
-		{
-			console.log(err);
-			res.redirect("/home/"+req.params.id);
-		}
-		else
-		{
-		var likedby=req.user.username;
-		var id=req.params.id;
-		var newLike={likedby:likedby,postid:id};
-		console.log("route wala array",newLike);
-		Like.create(newLike,function(err,newlyAddedLike) 
-			{
-				console.log(newlyAddedLike);
-			});
-		console.log(foundCampground.likes);
-		res.redirect("/home/"+req.params.id);
-		}
-	}) */
-
-/* }) */
-
+//like request for the post 
 router.get("/home/:id/likes",middleware.isLoggedIn,function(req,res) 
 {
 	//find the post by id

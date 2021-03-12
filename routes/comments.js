@@ -1,17 +1,21 @@
+//requiring express 
 var express=require("express");
 var router= express.Router();
+
+//requiring posts and comment model from mongodb
 var Posts=require("../models/posts");
 var Comment =require("../models/comment");
+
+//requiring middleware file
 var middleware=require("../middleware");
 
 
 //new comments form
 router.get("/home/:id/comments/new",middleware.isLoggedIn,function(req,res) {
-	// body...
-	//find cg by id
+	//find the post by id
 	
 	Posts.findById(req.params.id,function(err,posts) {
-		// body...
+		
 		if(err)
 		{
 			console.log(err);
@@ -27,7 +31,7 @@ router.get("/home/:id/comments/new",middleware.isLoggedIn,function(req,res) {
 
 //comments create
 router.post("/home/:id/comments",middleware.isLoggedIn,function(req,res) {
-	//lookup cg using id
+	//lookup posts using id
 	Posts.findById(req.params.id,function(err,campground) {
 		if(err)
 		{
@@ -63,13 +67,14 @@ router.post("/home/:id/comments",middleware.isLoggedIn,function(req,res) {
 		// body...
 	})
 	
-	//connect comment to cg
+	//connect comment to post
 	//redirect to show page
 
 });
 
 //edit route
 router.get("/home/:id/comments/:comments_id/edit",middleware.checkCommentOwnership,function(req,res) {
+	//find the comment using id
 	Comment.findById(req.params.comments_id,function(err,foundComment) {
 		if(err)
 		{
@@ -85,8 +90,8 @@ router.get("/home/:id/comments/:comments_id/edit",middleware.checkCommentOwnersh
 
 //comment update route
 router.put("/home/:id/comments/:comments_id/edit",middleware.checkCommentOwnership,function(req,res) {
+	//update the comment using comments/edit.js details
 	Comment.findByIdAndUpdate(req.params.comments_id,req.body.comment,function(err,updatedComment) {
-		// body...
 		if(err)
 		{
 			res.redirect("back");
@@ -100,6 +105,7 @@ router.put("/home/:id/comments/:comments_id/edit",middleware.checkCommentOwnersh
 
 //commment destroy route
 router.delete("/home/:id/comments/:comments_id",middleware.checkCommentOwnership,function(req,res) {
+	//find and delete the comment using ID
 	Comment.findByIdAndRemove(req.params.comments_id,function(err) {
 		if(err)
 		{
@@ -110,7 +116,7 @@ router.delete("/home/:id/comments/:comments_id",middleware.checkCommentOwnership
 			req.flash("success","Comment deleted");
 			res.redirect("/home/"+req.params.id);
 		}
-		// body...
+	
 	})
 })
 

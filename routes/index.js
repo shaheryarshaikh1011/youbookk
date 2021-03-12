@@ -1,7 +1,12 @@
+//requiring express and passportjs
 var express=require("express");
 var router= express.Router();
 var passport=require("passport");
+
+//requiring user model from mongodb
 var User    =require("../models/user");
+
+//requiring middleware file
 var middleware=require("../middleware");
 
 
@@ -51,7 +56,7 @@ router.post("/login",passport.authenticate("local",
 	 	failureRedirect:"/login",
 		failureFlash: true
 	 }),function(req,res) {
-	// body...
+
 	
 });
 
@@ -67,7 +72,6 @@ router.get("/logout",function(req,res) {
 
 
 
-//middleware
 
 
 module.exports=router;
