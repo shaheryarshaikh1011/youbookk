@@ -39,7 +39,7 @@ app.use(flash());
 //MongoDb configuration
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb+srv://shaheryar:shaheryar@blogapp.x2gmw.mongodb.net/youbook",function(err) {
+mongoose.connect(process.env.CloudDB,function(err) {
 	if(err)
 	{
 		//if connection fails
@@ -47,7 +47,7 @@ mongoose.connect("mongodb+srv://shaheryar:shaheryar@blogapp.x2gmw.mongodb.net/yo
 	}
 	else
 	{
-		console.log("we are connected to "+process.env.CloudDB);
+		console.log("we are connected to Database "+process.env.CloudDB);
 	}
 });
 
@@ -61,7 +61,7 @@ app.set("view engine","ejs");
 
 //passport configuration
 app.use(require("express-session")({
-	secret:"Bittu",
+	secret:process.env.SESSION_KEY,
 	resave: false,
 	saveUninitialized:false
 }));
@@ -73,32 +73,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-/* function hi(req,res,next)
-{
 
-  console.log(process.env.SENDGRID_API_KEY);
-};
-
-const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-const msg = {
-  to: 'shaheryar.shaikh@avc.ac.in', // Change to your recipient
-  from: 'hmsofficial1011@gmail.com', // Change to your verified sender
-  subject: 'Sending with SendGrid is Fun',
-  text: 'and easy to do anywhere, even with Node.js',
-  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-}
-sgMail
-  .send(msg)
-  .then(() => {
-    console.log('Email sent')
-  })
-  .catch((error) => {
-    console.error(error.response.body)
-  })
-
-console.log(process.env.SENDGRID_API_KEY); */
-//app.use(hi);
 app.use(function(req,res,next) {
 	res.locals.currentUser=req.user;
 	res.locals.error=req.flash("error");
@@ -211,10 +186,7 @@ app.get('/api/user_data', function(req, res) {
 
 //server listener
 http.listen(process.env.PORT || 3000, function() {
-	var host = http.address().address || '0.0.0.0';
-	var port = http.address().port || process.env.PORT;
+	var host = http.address().address
+	var port = http.address().port
 	console.log('YouBook WebApp listening at http://%s:%s', host, port)
   });
-
-
-
