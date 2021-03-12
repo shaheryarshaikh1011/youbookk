@@ -39,7 +39,17 @@ app.use(flash());
 //MongoDb configuration
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb+srv://shaheryar:shaheryar@blogapp.x2gmw.mongodb.net/youbook",function(err) {
+	if(err)
+	{
+		//if connection fails
+		console.log(err);
+	}
+	else
+	{
+		console.log("we are connected to "+process.env.CloudDB);
+	}
+});
 
 //setting up bodyparser
 app.use(bodyParser.urlencoded({extended:true}));
@@ -51,7 +61,7 @@ app.set("view engine","ejs");
 
 //passport configuration
 app.use(require("express-session")({
-	secret:"Once again Bittu wins cutest dog!",
+	secret:"Bittu",
 	resave: false,
 	saveUninitialized:false
 }));
@@ -201,7 +211,10 @@ app.get('/api/user_data', function(req, res) {
 
 //server listener
 http.listen(process.env.PORT || 3000, function() {
-	var host = http.address().address
-	var port = http.address().port
+	var host = http.address().address || '0.0.0.0';
+	var port = http.address().port || process.env.PORT;
 	console.log('YouBook WebApp listening at http://%s:%s', host, port)
   });
+
+
+

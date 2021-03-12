@@ -4,6 +4,7 @@ var passport=require("passport");
 var User    =require("../models/user");
 var middleware=require("../middleware");
 
+
 //landing page
 router.get("/",function(req,res) {
 	// body...
