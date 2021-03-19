@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Youbook</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -10,34 +11,37 @@
   <link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-	<div class="container" id="flash">
-		<%if(error && error.length>0){%>
-		  <div class="alert alert-danger" role="alert">
-			  <%=error%>
-		  </div>
-		<%}%>
-		<%if(success && success.length>0){%>
-		  <div class="alert alert-success" role="alert">
-			<%=success%>
-		  </div>
-		<%}%>
-	</div>
 
-<div class="container">
+<body>
+  <div class="container" id="flash">
+    <%if(error && error.length>0){%>
+      <div class="alert alert-danger" role="alert">
+        <%=error%>
+      </div>
+      <%}%>
+        <%if(success && success.length>0){%>
+          <div class="alert alert-success" role="alert">
+            <%=success%>
+          </div>
+          <%}%>
+  </div>
+
+  <div class="container">
     <div class="card card-container">
-        <img id="profile-img" class="profile-img-card" src="/logo/YouBook.jpg" />
-        <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin" action="/register" method="POST" >
-            <input class="form-control" type="text" placeholder="enter username" name="username" required autofocus>
-            <input class="form-control" type="password" placeholder="enter password" name="password" required>
-            
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Register</button>
-        </form><!-- /form -->
-        <a class="btn btn-lg btn-primary btn-block btn-signin" href="/login">Already a user?</a>
+      <img id="profile-img" class="profile-img-card" src="/logo/YouBook.jpg" />
+      <p id="profile-name" class="profile-name-card"></p>
+      <form class="form-signin" action="/register" method="POST">
+        <input class="form-control" type="text" placeholder="enter username" name="username"
+          oninvalid="this.setCustomValidity('Enter Username')" oninput="this.setCustomValidity('')" required autofocus>
+        <input class="form-control" type="password" placeholder="enter password" name="password"
+          oninvalid="this.setCustomValidity('Enter password')" oninput="this.setCustomValidity('')" required>
+
+        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Register</button>
+      </form><!-- /form -->
+      <a class="btn btn-lg btn-primary btn-block btn-signin" href="/login">Already a user?</a>
     </div><!-- /card-container -->
-</div><!-- /container -->
-<ul class="slideshow">
+  </div><!-- /container -->
+  <ul class="slideshow">
     <li></li>
     <li></li>
     <li></li>

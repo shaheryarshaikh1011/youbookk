@@ -11,7 +11,7 @@
         <div class="col-12 form-input">
 			<form action="/home/<%=campground._id%>/comments" method="POST">
             			<div class="form-group">
-		<input class="form-control" type="text" placeholder="enter comment" name="comment[text]" oninvalid="this.setCustomValidity('Please Enter Your comment')" required>
+		<input class="form-control" type="text" placeholder="enter comment" name="comment[text]" oninvalid="this.setCustomValidity('Please enter your comment')" oninput="this.setCustomValidity('')" required>
 			</div>
             <button type="submit" class="btn btn-success">submit</button>
             <div class="goback">

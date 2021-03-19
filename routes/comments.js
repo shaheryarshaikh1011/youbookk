@@ -73,7 +73,7 @@ router.post("/home/:id/comments",middleware.isLoggedIn,function(req,res) {
 });
 
 //edit route
-router.get("/home/:id/comments/:comments_id/edit",middleware.checkCommentOwnership,function(req,res) {
+router.get("/home/:id/comments/:comments_id/edit",middleware.isLoggedIn,middleware.checkCommentOwnership,function(req,res) {
 	//find the comment using id
 	Comment.findById(req.params.comments_id,function(err,foundComment) {
 		if(err)
@@ -89,7 +89,7 @@ router.get("/home/:id/comments/:comments_id/edit",middleware.checkCommentOwnersh
 });
 
 //comment update route
-router.put("/home/:id/comments/:comments_id/edit",middleware.checkCommentOwnership,function(req,res) {
+router.put("/home/:id/comments/:comments_id/edit",middleware.isLoggedIn,middleware.checkCommentOwnership,function(req,res) {
 	//update the comment using comments/edit.js details
 	Comment.findByIdAndUpdate(req.params.comments_id,req.body.comment,function(err,updatedComment) {
 		if(err)
@@ -104,7 +104,7 @@ router.put("/home/:id/comments/:comments_id/edit",middleware.checkCommentOwnersh
 })
 
 //commment destroy route
-router.delete("/home/:id/comments/:comments_id",middleware.checkCommentOwnership,function(req,res) {
+router.delete("/home/:id/comments/:comments_id",middleware.isLoggedIn,middleware.checkCommentOwnership,function(req,res) {
 	//find and delete the comment using ID
 	Comment.findByIdAndRemove(req.params.comments_id,function(err) {
 		if(err)

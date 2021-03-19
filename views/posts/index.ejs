@@ -7,29 +7,33 @@
 			<h1>Keep YouBooking</h1>
 			<p>Whats on your mind?</p>
 			<p>
-				<a id="postbtn" class="btn btn-primary btn-large" href="/home/new">New Post</a>
+				<a id="postbtn" class="btn btn-primary btn-large" href="/home/new" style="border-radius: 15%;">New
+					Post</a>
 			</p>
 		</div>
-	
+
 	</header>
 	<div class="row text-center" style="display:flex; flex-wrap:wrap;">
 		<%campgrounds.reverse().forEach(function(campground){%>
-		<div class="col-md-3 col-sm-6">
-			<div class="thumbnail" style="border-radius: 10%;">
-				<img id="thumbindex" src="<%=campground.pphoto%>" style="border-radius: 15%;padding-top: 2px;padding-left: 2px;padding-right: 2px;">
-				<div class="caption">
-					<h4><%=campground.name%></h4>
+			<div class="col-md-3 col-sm-6">
+				<div class="thumbnail" style="border-radius: 10%;">
+					<img id="thumbindex" src="<%=campground.pphoto%>"
+						style="border-radius: 15%;padding-top: 2px;padding-left: 2px;padding-right: 2px;">
+					<div class="caption">
+						<h4>
+							<%=campground.name%>
+						</h4>
+					</div>
+					<p>
+						<a href="/home/<%=campground._id%>" class="btn btn-lg btn-primary" id="more">More Info</a>
+					</p>
+
 				</div>
-				<p>
-					<a href="/home/<%=campground._id%>" class="btn btn-lg btn-primary" id="more">More Info</a>
-				</p>
-			
+
 			</div>
-			
-		</div>
 
-		<%});%>
+			<%});%>
 	</div>
-</div>
+	</div>
 
-<%- include('../partials/footer'); -%>
+	<%- include('../partials/footer'); -%>

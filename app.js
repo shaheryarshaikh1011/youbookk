@@ -12,12 +12,6 @@ var methodOverride=require("method-override");
 //requiring Middleware
 var middleware=require("./middleware");
 
-//setting up multer destination
-var upload = multer({dest: 'public/img/users'})
-
-//requiring models
-var Posts=require("./models/posts");
-var Comment =require("./models/comment");
 
 var User    =require("./models/user");
 
@@ -93,7 +87,6 @@ app.use(commentRoutes);
 
 //socket connections
 const path = require('path');
-const socketio = require('socket.io');
 const formatMessage = require('./utils/messages');
 const {
   userJoin,
@@ -188,5 +181,5 @@ app.get('/api/user_data', function(req, res) {
 http.listen(process.env.PORT || 3000, function() {
 	var host = http.address().address
 	var port = http.address().port
-	console.log('YouBook WebApp listening at http://%s:%s', host, port)
+	console.log('YouBook WebApp listening at http://localhost:'+port)
   });

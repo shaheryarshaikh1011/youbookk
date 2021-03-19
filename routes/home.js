@@ -118,7 +118,7 @@ router.get("/home/:id",function(req,res) {
 });
 
 //edit post by ID
-router.get("/home/:id/edit",middleware.checkPostOwnership,function(req,res) {
+router.get("/home/:id/edit",middleware.isLoggedIn,middleware.checkPostOwnership,function(req,res) {
 		//find the post and fill the edit form with post details
 		Posts.findById(req.params.id,function(err,foundCampground) {
 		
@@ -128,7 +128,7 @@ router.get("/home/:id/edit",middleware.checkPostOwnership,function(req,res) {
 });
 
 //update  post route
-router.put("/home/:id/edit",middleware.checkPostOwnership,function(req,res) {
+router.put("/home/:id/edit",middleware.isLoggedIn,middleware.checkPostOwnership,function(req,res) {
 	//find and update
 	Posts.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCampground) {
 		if(err)

@@ -1,36 +1,41 @@
 <%- include('../partials/forms'); -%>
 
-<div class="modal-dialog text-center form-page">
+  <div class="modal-dialog text-center form-page">
     <div class="col-sm-9 main-section">
-    <h1 class="ftitle">Edit your post <%= campground.name %></h1>
+      <h1 class="ftitle">Edit your post <%= campground.name %>
+      </h1>
       <div class="modal-content">
-          <div class="col-12">
+        <div class="col-12">
           <h1></h1>
         </div>
 
         <div class="col-12 form-input">
-			<form action="/home/<%= campground._id %>/edit?_method=PUT" method="POST">
-            			<div class="form-group">
+          <form action="/home/<%= campground._id %>/edit?_method=PUT" method="POST">
+            <div class="form-group">
 
-		<input class="form-control" type="text" value="<%= campground.name %>" name="campground[name]"  oninvalid="this.setCustomValidity('Please Enter Your Postname')" required>
-			</div>
-			<div class="form-group">
-				<input class="form-control" type="text" value="<%= campground.description %>" name="campground[description]">
-			  </div>
+              <input class="form-control" type="text" value="<%= campground.name %>" name="campground[name]"
+                oninvalid="this.setCustomValidity('Please Enter Your Postname')" oninput="this.setCustomValidity('')"
+                required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" value="<%= campground.description %>"
+                name="campground[description]" oninvalid="this.setCustomValidity('Please Enter Your Postdescription')"
+                oninput="this.setCustomValidity('')" required>
+            </div>
             <button type="submit" class="btn btn-success">submit</button>
             <div class="goback">
-            <a class="btn btn-warning btn-lg" href="/home/<%=campground._id%>/" > Go back!</a>
+              <a class="btn btn-warning btn-lg" href="/home/<%=campground._id%>/"> Go back!</a>
             </div>
           </form>
 
 
         </div>
 
-   
+
 
       </div>
     </div>
-</div>
+  </div>
 
 
-<%- include('../partials/footer'); -%>
+  <%- include('../partials/footer'); -%>
