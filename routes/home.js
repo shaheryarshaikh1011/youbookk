@@ -42,7 +42,7 @@ var uploadUserPhoto=upload.single('photo');
 
 
 //get all the posts
-router.get("/home",function(req,res) {
+router.get("/home",middleware.isLoggedIn,function(req,res) {
 	Posts.find({},function(err,allcampgrounds) {
 		if(err)
 		{
