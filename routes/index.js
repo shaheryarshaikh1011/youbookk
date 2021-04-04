@@ -68,7 +68,7 @@ router.get("/logout",function(req,res) {
 });
 
 
-
+//this route runs whenever user invokes an invalid route
 router.get('*', function (req, res) {
     res.render('404.ejs');
 })
