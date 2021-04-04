@@ -67,7 +67,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
+//this function is used to set all server variables
 app.use(function(req,res,next) {
 	res.locals.currentUser=req.user;
 	res.locals.error=req.flash("error");
@@ -167,6 +167,9 @@ io.on('connection', socket => {
   });
 });
 
+
+
+//this function get triggered when a user tries to access invalid route it return status of 404 not found and a webpage
 app.use(function (req, res) {
   res.status(404).render('404');
 });
