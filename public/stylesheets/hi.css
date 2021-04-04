@@ -8,7 +8,7 @@
   body
   {
       margin: 0;
-    background: #200029;
+    background: #330050;
   }
   
   canvas
@@ -25,7 +25,7 @@
       height: 100%;
       height: 100vh;
   
-      background:  #200029;
+      background:  #330050;
   }
   
   @import url(http://fonts.googleapis.com/css?family=Roboto:100);
@@ -46,7 +46,7 @@
   
       text-align: center;
   
-      color: #674172;
+      color: #a403ee;
   }
   .aa_inner
   {
@@ -62,7 +62,7 @@
       padding: 1rem;
   
       color: c2;
-      background: darken(#674172,5%);
+      background: darken(#a403ee,5%);
   }
   
   
@@ -151,3 +151,10 @@
       border-bottom: 0;
     }
   }
+
+
+#enter:hover,
+#enter:active,
+#enter:focus {
+    background-color: rgb(12, 97, 33);
+}
