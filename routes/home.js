@@ -100,7 +100,7 @@ router.get("/home/new",middleware.isLoggedIn,function (req,res) {
 
 
 //get the post by ID
-router.get("/home/:id",function(req,res) {
+router.get("/home/:id",middleware.isLoggedIn,function(req,res) {
 	//find the post details from post models and populate it with comments
 	Posts.findById(req.params.id).populate("comments").exec(function(err,foundCampground) {
 		// body...

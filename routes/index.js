@@ -69,6 +69,10 @@ router.get("/logout",function(req,res) {
 
 
 
+router.get('*', function (req, res) {
+    res.render('404.ejs');
+})
+
 
 
 
