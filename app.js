@@ -79,6 +79,7 @@ app.use(function(req,res,next) {
 
 
 //using routes
+
 app.use(indexRoutes);
 app.use(postRoutes);
 app.use(commentRoutes);
@@ -101,6 +102,9 @@ const io =require('socket.io')(http);
 app.get('/joinChat',middleware.isLoggedIn,function (req, res) {
 	res.sendFile(__dirname + '/public/room.html');
   });
+
+
+
   
   
   //botname
@@ -113,7 +117,7 @@ app.get('/joinChat',middleware.isLoggedIn,function (req, res) {
 io.on('connection', socket => {
   socket.on('joinRoom', ({ username, room }) => {
     const user = userJoin(socket.id, username, room);
-    console.log(user);
+   
 
     
     
@@ -163,18 +167,9 @@ io.on('connection', socket => {
   });
 });
 
-app.get('/api/user_data', function(req, res) {
-
-  if (req.user === undefined) {
-      // The user is not logged in
-      res.json({});
-  } else {
-      res.json({
-          userr: req.user
-      });
-  }
+app.use(function (req, res) {
+  res.status(404).render('404');
 });
-
 
 
 //server listener

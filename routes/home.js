@@ -176,7 +176,7 @@ router.get("/home/:id/likes",middleware.isLoggedIn,function(req,res)
 		// append the username to the error and save
 		doc.likedby.addToSet(us);
 		doc.save() 
-		console.log(doc.likedby);
+	
 		res.redirect("/home/"+req.params.id);
 		}
 	});
